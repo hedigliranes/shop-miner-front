@@ -3,7 +3,7 @@
 
     <nav>
       <div class="nav-wrapper blue darken-1">
-        <a href="#" class="brand-logo center">SHOP SUEY</a>
+        <a href="#" class="brand-logo center">SHOP MINER</a>
       </div>
     </nav>
 
@@ -12,7 +12,7 @@
       <form @submit.prevent="listSites">
 
           <label>Busca</label>
-          <input type="text" placeholder="Corno Search" v-model="query.search">
+          <input type="text" placeholder="Search" v-model="query.search">
 
           <button class="waves-effect waves-light btn-small">Buscar<i class="material-icons left">save</i></button>
 
