@@ -1,28 +1,87 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <nav>
+      <div class="nav-wrapper blue darken-1">
+        <a href="#" class="brand-logo center">SHOP SUEY</a>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <form @submit.prevent="listSites">
+
+          <label>Busca</label>
+          <input type="text" placeholder="Corno Search" v-model="query.search">
+
+          <button class="waves-effect waves-light btn-small">Buscar<i class="material-icons left">save</i></button>
+
+      </form>
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>NOME</th>
+            <th>PREÇO</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr v-for="sites of site" :key="sites.id" >
+
+            <td>{{sites.name}}</td>
+            <td>{{sites.price}}</td>
+            <td>
+              </td>
+
+          </tr>
+
+        </tbody>
+      
+      </table>
+
+    </div>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
+import Product from './services/products'
+
+export default{
+
+  data(){
+    return{
+      query:{
+        search:''
+      },
+      site:[]
+    }
+  },
+
+  mounted(){
+    
+  },
+  methods:{
+    listSites(){
+        Product.listSites(this.query.search).then(resp => {
+          alert("Buscando...")
+          this.site = resp.data
+        })
+    }
+     
+  } 
 }
+
+
+
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
