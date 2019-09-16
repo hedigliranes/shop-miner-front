@@ -6,6 +6,7 @@ import Site from '@/components/Site'
 import Favorite from '@/components/Favorite'
 import ConfigNew from '@/components/ConfigNew'
 import ConfigUpdate from '@/components/ConfigUpdate'
+import ConfigView from '@/components/ConfigView'
 import SiteNew from '@/components/SiteNew'
 import SiteUpdate from '@/components/SiteUpdate'
 
@@ -34,6 +35,12 @@ export default new Router({
       name: 'ConfigUpdate',
       props: true,
       component: ConfigUpdate
+    },
+    {
+      path: '/config/view/:id',
+      name: 'ConfigView',
+      props: true,
+      component: ConfigView
     },
     {
       path: '/site',

@@ -11,9 +11,9 @@
       <div class="nav-wrapper blue darken-1">
         <ul id="nav-mobile" class="hide-on-med-and-down">
           <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="config">Configurações</router-link></li>
-          <li><router-link to="site">Sites</router-link></li>
-          <li><router-link to="favorite">Favoritos</router-link></li>
+          <li><router-link to="/config">Configurações</router-link></li>
+          <li><router-link to="/site">Sites</router-link></li>
+          <li><router-link to="/favorite">Favoritos</router-link></li>
         </ul>
       </div>
     </nav>

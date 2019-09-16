@@ -20,14 +20,33 @@
 
     <div class="container">
 
-      <form @submit.prevent="editConfigs">
+      <h5 class="att">Nome: {{config.name}}</h5>
 
-          <input type="text" placeholder="Nome" v-model="config.name">
-          <input type="text" placeholder="Descrição" v-model="config.descrition">
+      <h5 class="att">Descrição: {{config.descrition}}</h5>
 
-          <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
+      <table>
 
-      </form>
+        <thead>
+
+          <tr>
+            <th>SITE</th>
+            <th>URL</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr v-for="config of this.sites" :key="config.id" >
+
+            <td>{{config.name}}</td>
+            <td>{{config.url}}</td>
+
+          </tr>
+
+        </tbody>
+      
+      </table>
 
     </div>
 
@@ -37,6 +56,7 @@
 <script>
 
 import Configs from '../services/configs'
+import Sites from '../services/sites'
 
 export default{
 
@@ -49,8 +69,9 @@ export default{
       config: {
         id:'',
         name:'',
-        descrition: ''
-      }
+        descrition: '',
+      },
+        sites:[]
     }
   },
 
@@ -60,19 +81,24 @@ export default{
 
   methods:{
 
-    editConfigs(){
-        Configs.editConfigs(this.config).then(resp => {
-          window.location.replace("#/config");
-        })
-    },
-
+    
     findConfig(){
       Configs.findConfig(this.id).then(resp => {
           this.config = resp.data;
+           this.listSites()
+        })
+    },
+
+    listSites(){
+        Sites.listSites().then(resp => {
+         for (var i = 0; i < resp.data.length; i++) {
+                if(resp.data[i].config.id == this.config.id){
+                    this.sites.push(resp.data[i])
+                    console.log(resp.data[i]);
+                }
+            }
         })
     }
-     
-
 
   } 
 }
@@ -91,6 +117,10 @@ nav.nav-center ul li {
 }
 nav.nav-center ul li a {
     display: inline-block;
+}
+
+.att{
+    text-align: left
 }
 
 </style>

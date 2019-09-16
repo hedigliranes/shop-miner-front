@@ -11,9 +11,9 @@
       <div class="nav-wrapper blue darken-1">
         <ul id="nav-mobile" class="hide-on-med-and-down">
           <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="config">Configurações</router-link></li>
-          <li><router-link to="site">Sites</router-link></li>
-          <li><router-link to="favorite">Favoritos</router-link></li>
+          <li><router-link to="/config">Configurações</router-link></li>
+          <li><router-link to="/site">Sites</router-link></li>
+          <li><router-link to="/favorite">Favoritos</router-link></li>
         </ul>
       </div>
     </nav>
@@ -25,7 +25,6 @@
           <input type="text" placeholder="Nome" v-model="site.name">
           <input type="text" placeholder="URL" v-model="site.url">
           <input type="text" placeholder="Tag Class" v-model="site.tagClass">
-          <input type="text" placeholder="Configuração" v-model="site.config.id">
 
           <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
 
@@ -47,10 +46,7 @@ export default{
       site: {
       	name:'',
       	url: '',
-        tagClass:'',
-        config:{
-            id:''
-        }
+        tagClass:''
       }
     }
   },

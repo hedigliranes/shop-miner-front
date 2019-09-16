@@ -11,9 +11,9 @@
       <div class="nav-wrapper blue darken-1">
         <ul id="nav-mobile" class="hide-on-med-and-down">
           <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="config">Configurações</router-link></li>
-          <li><router-link to="site">Sites</router-link></li>
-          <li><router-link to="favorite">Favoritos</router-link></li>
+          <li><router-link to="/config">Configurações</router-link></li>
+          <li><router-link to="/site">Sites</router-link></li>
+          <li><router-link to="/favorite">Favoritos</router-link></li>
         </ul>
       </div>
     </nav>
@@ -44,6 +44,7 @@
             <td>
             <button class=" red darken-3 btn-small"><router-link :to="'config/update/' + config.id" class="router-link"><i class="material-icons center">create</i></router-link></button>
             <button @click = "deleteConfigs(config)" class=" blue darken-3 btn-small"><i class="material-icons center">delete</i></button>
+            <button class=" green darken-3 btn-small"><router-link :to="'config/view/' + config.id" class="router-link"><i class="material-icons center">remove_red_eye</i></router-link></button>
             </td>
 
           </tr>
