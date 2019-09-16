@@ -48,12 +48,13 @@ export default new Router({
       component: Site
     },
     {
-      path: '/site/new/',
+      path: '/site/new/:confId',
       name: 'SiteNew',
+      props: true,
       component: SiteNew
     },
     {
-      path: '/site/update/:id',
+      path: '/site/update/:id/:confId',
       name: 'SiteUpdate',
       props: true,
       component: SiteUpdate

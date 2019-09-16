@@ -20,8 +20,6 @@
 
     <div class="container">
 
-      <button class=" pink darken-3 btn-small"><router-link to="site/new" class="router-link">Adicionar </router-link><i class="material-icons left">add_circle</i></button>
-
 
       <table>
 
@@ -30,7 +28,7 @@
           <tr>
             <th>NOME</th>
             <th>URL</th>
-            <th>OPÇÕES</th>
+            <th>Configuração</th>
           </tr>
 
         </thead>
@@ -41,10 +39,8 @@
 
             <td>{{site.name}}</td>
             <td>{{site.url}}</td>
-            <td>
-            <button class=" red darken-3 btn-small"><router-link :to="'site/update/' + site.id" class="router-link"><i class="material-icons center">create</i></router-link></button>
-            <button @click = "deleteSites(site)" class=" blue darken-3 btn-small"><i class="material-icons center">delete</i></button>
-            </td>
+            <td>{{site.config.id}}</td>
+            
 
           </tr>
 
@@ -80,13 +76,7 @@ export default{
         Sites.listSites().then(resp => {
           this.sites = resp.data
         })
-    },
-    deleteSites(SiteDel){
-        Sites.deleteSites(SiteDel).then(resp => {
-          this.listSites();
-        })
-    }
-     
+    },     
   } 
 }
 

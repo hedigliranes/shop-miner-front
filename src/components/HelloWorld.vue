@@ -22,6 +22,12 @@
 
       <form @submit.prevent="listSites">
 
+          <h5>Selecione a configuração:</h5>
+          <select @change="handleChange" class="browser-default">
+            <option value="" disabled selected>Choose your option</option>
+            <option v-for="config of configs" :value="config.id" >{{config.name}}</option>
+          </select>
+
           <input type="text" placeholder="Search" v-model="query.search">
 
           <button class="waves-effect waves-light btn-small">Buscar<i class="material-icons left">search</i></button>
@@ -62,27 +68,43 @@
 <script>
 
 import Product from '../services/products'
+import Configs from '../services/configs'
 
 export default{
+
 
   data(){
     return{
       query:{
         search:''
-      },
-      site:[]
+        },
+      site:[],
+      configs:[],
+      config:{
+        id:''
+      }
     }
   },
 
   mounted(){
-    
+    this.listConfigs();
   },
   methods:{
     listSites(){
-        Product.listSites(this.query.search).then(resp => {
+        Product.listSites(this.query.search,this.config.id).then(resp => {
           this.site = resp.data
         })
-    }
+    },
+    listConfigs(){
+        Configs.listConfigs().then(resp => {
+          this.configs = resp.data
+        })
+    },
+    handleChange(e) {
+        if(e.target.options.selectedIndex > -1) {
+          this.config.id = e.target.options[e.target.options.selectedIndex].value
+        }
+    } 
      
   } 
 }

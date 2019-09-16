@@ -25,6 +25,7 @@
           <input type="text" placeholder="Nome" v-model="site.name">
           <input type="text" placeholder="URL" v-model="site.url">
           <input type="text" placeholder="Tag Class" v-model="site.tagClass">
+          <input type="text" placeholder="Id da configuração" v-model="site.config.id">
 
           <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
 
@@ -42,7 +43,8 @@ import Sites from '../services/sites'
 export default{
 
   props:[
-  'id'
+  'id',
+  'confId'
   ],
 
   data(){
@@ -51,7 +53,10 @@ export default{
         id:'',
       	name:'',
       	url: '',
-        tagClass:''
+        tagClass:'',
+        config:{
+          id:''
+        }
         
       }
     }
@@ -65,14 +70,13 @@ export default{
 
     editSites(){
         Sites.editSites(this.site).then(resp => {
-          window.location.replace("#/site");
+          window.location.replace("#/config/view/" + this.confId);
         })
     },
 
     findSite(){
       Sites.findSite(this.id).then(resp => {
           this.site = resp.data;
-          console.log(this.site);
         })
     }
      
