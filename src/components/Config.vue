@@ -20,13 +20,8 @@
 
     <div class="container">
 
-      <form @submit.prevent="listSites">
+      <button class=" pink darken-3 btn-small"><router-link to="config/new" class="router-link">Adicionar </router-link><i class="material-icons left">add_circle</i></button>
 
-          <input type="text" placeholder="Search" v-model="query.search">
-
-          <button class="waves-effect waves-light btn-small">Buscar<i class="material-icons left">search</i></button>
-
-      </form>
 
       <table>
 
@@ -34,19 +29,22 @@
 
           <tr>
             <th>NOME</th>
-            <th>PREÇO</th>
+            <th>DESCRIÇÃO</th>
+            <th>OPÇÕES</th>
           </tr>
 
         </thead>
 
         <tbody>
 
-          <tr v-for="sites of site" :key="sites.id" >
+          <tr v-for="config of configs" :key="config.id" >
 
-            <td>{{sites.name}}</td>
-            <td>{{sites.price}}</td>
+            <td>{{config.name}}</td>
+            <td>{{config.descrition}}</td>
             <td>
-              </td>
+            <button class=" red darken-3 btn-small"><router-link :to="'config/update/' + config.id" class="router-link"><i class="material-icons center">create</i></router-link></button>
+            <button @click = "deleteConfigs(config)" class=" blue darken-3 btn-small"><i class="material-icons center">delete</i></button>
+            </td>
 
           </tr>
 
@@ -56,31 +54,36 @@
 
     </div>
 
+
+
   </div>
 </template>
 
 <script>
 
-import Product from '../services/products'
+import Configs from '../services/configs'
 
 export default{
 
   data(){
     return{
-      query:{
-        search:''
-      },
-      site:[]
+      configs:[]
     }
   },
 
   mounted(){
-    
+    this.listConfigs()
   },
+
   methods:{
-    listSites(){
-        Product.listSites(this.query.search).then(resp => {
-          this.site = resp.data
+    listConfigs(){
+        Configs.listConfigs().then(resp => {
+          this.configs = resp.data
+        })
+    },
+    deleteConfigs(configDel){
+        Configs.deleteConfigs(configDel).then(resp => {
+          this.listConfigs();
         })
     }
      
@@ -101,5 +104,15 @@ nav.nav-center ul li {
 }
 nav.nav-center ul li a {
     display: inline-block;
+}
+
+.router-link{
+  color: white;
+}
+
+.pink, darken-3{
+	float:left;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 </style>

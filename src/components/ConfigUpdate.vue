@@ -20,39 +20,14 @@
 
     <div class="container">
 
-      <form @submit.prevent="listSites">
+      <form @submit.prevent="editConfigs">
 
-          <input type="text" placeholder="Search" v-model="query.search">
+          <input type="text" placeholder="Nome" v-model="config.name">
+          <input type="text" placeholder="Descrição" v-model="config.descrition">
 
-          <button class="waves-effect waves-light btn-small">Buscar<i class="material-icons left">search</i></button>
+          <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
 
       </form>
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th>NOME</th>
-            <th>PREÇO</th>
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          <tr v-for="sites of site" :key="sites.id" >
-
-            <td>{{sites.name}}</td>
-            <td>{{sites.price}}</td>
-            <td>
-              </td>
-
-          </tr>
-
-        </tbody>
-      
-      </table>
 
     </div>
 
@@ -61,29 +36,46 @@
 
 <script>
 
-import Product from '../services/products'
+import Configs from '../services/configs'
 
 export default{
 
+  props:[
+  'id'
+  ],
+
   data(){
     return{
-      query:{
-        search:''
-      },
-      site:[]
+      configIdObj:'',
+      config: {
+        id:'',
+        name:'',
+        descrition: ''
+      }
     }
   },
 
   mounted(){
-    
+    this.findConfig()
   },
+
   methods:{
-    listSites(){
-        Product.listSites(this.query.search).then(resp => {
-          this.site = resp.data
+
+    editConfigs(){
+        Configs.editConfigs(this.config).then(resp => {
+          window.location.replace("#/config");
+        })
+    },
+
+    findConfig(){
+      Configs.findConfig(this.id).then(resp => {
+          this.config = resp.data;
+          console.log(this.config);
         })
     }
      
+
+
   } 
 }
 
@@ -102,4 +94,6 @@ nav.nav-center ul li {
 nav.nav-center ul li a {
     display: inline-block;
 }
+
 </style>
+  
