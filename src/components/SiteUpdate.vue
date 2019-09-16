@@ -20,10 +20,12 @@
 
     <div class="container">
 
-      <form @submit.prevent="editConfigs">
+      <form @submit.prevent="editSites">
 
-          <input type="text" placeholder="Nome" v-model="config.name">
-          <input type="text" placeholder="Descrição" v-model="config.descrition">
+          <input type="text" placeholder="Nome" v-model="site.name">
+          <input type="text" placeholder="URL" v-model="site.url">
+          <input type="text" placeholder="Tag Class" v-model="site.tagClass">
+          <input type="text" placeholder="Configuração" v-model="site.config.id">
 
           <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
 
@@ -36,7 +38,7 @@
 
 <script>
 
-import Configs from '../services/configs'
+import Sites from '../services/sites'
 
 export default{
 
@@ -46,29 +48,34 @@ export default{
 
   data(){
     return{
-      config: {
+     site: {
         id:'',
-        name:'',
-        descrition: ''
+      	name:'',
+      	url: '',
+        tagClass:'',
+        config:{
+            id:''
+        }
       }
     }
   },
 
   mounted(){
-    this.findConfig()
+    this.findSite()
   },
 
   methods:{
 
-    editConfigs(){
-        Configs.editConfigs(this.config).then(resp => {
-          window.location.replace("#/config");
+    editSites(){
+        Sites.editSites(this.site).then(resp => {
+          window.location.replace("#/site");
         })
     },
 
-    findConfig(){
-      Configs.findConfig(this.id).then(resp => {
-          this.config = resp.data;
+    findSite(){
+      Sites.findSite(this.id).then(resp => {
+          this.site = resp.data;
+          console.log(this.site);
         })
     }
      
@@ -80,6 +87,7 @@ export default{
 
 
 </script>
+
 
 <style>
 nav.nav-center ul {
@@ -94,4 +102,3 @@ nav.nav-center ul li a {
 }
 
 </style>
-  

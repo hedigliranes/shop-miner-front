@@ -20,10 +20,12 @@
 
     <div class="container">
 
-      <form @submit.prevent="editConfigs">
+      <form @submit.prevent="saveSites">
 
-          <input type="text" placeholder="Nome" v-model="config.name">
-          <input type="text" placeholder="Descrição" v-model="config.descrition">
+          <input type="text" placeholder="Nome" v-model="site.name">
+          <input type="text" placeholder="URL" v-model="site.url">
+          <input type="text" placeholder="Tag Class" v-model="site.tagClass">
+          <input type="text" placeholder="Configuração" v-model="site.config.id">
 
           <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
 
@@ -36,44 +38,33 @@
 
 <script>
 
-import Configs from '../services/configs'
+import Sites from '../services/sites'
 
 export default{
 
-  props:[
-  'id'
-  ],
-
   data(){
     return{
-      config: {
-        id:'',
-        name:'',
-        descrition: ''
+      site: {
+      	name:'',
+      	url: '',
+        tagClass:'',
+        config:{
+            id:''
+        }
       }
     }
   },
 
   mounted(){
-    this.findConfig()
   },
 
   methods:{
-
-    editConfigs(){
-        Configs.editConfigs(this.config).then(resp => {
-          window.location.replace("#/config");
-        })
-    },
-
-    findConfig(){
-      Configs.findConfig(this.id).then(resp => {
-          this.config = resp.data;
+    saveSites(){
+        Sites.saveSites(this.site).then(resp => {
+          window.location.replace("#/site");
         })
     }
      
-
-
   } 
 }
 
@@ -94,4 +85,3 @@ nav.nav-center ul li a {
 }
 
 </style>
-  
