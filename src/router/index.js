@@ -10,6 +10,8 @@ import ConfigView from '@/components/ConfigView'
 import SiteNew from '@/components/SiteNew'
 import SiteUpdate from '@/components/SiteUpdate'
 import FavoriteUpdate from '@/components/FavoriteUpdate'
+import FavoriteView from '@/components/FavoriteView'
+
 
 
 
@@ -71,6 +73,12 @@ export default new Router({
       name: 'FavoriteUpdate',
       props: true,
       component: FavoriteUpdate
+    },
+    {
+      path: '/favorite/view/:idFav/:id/:query',
+      name: 'FavoriteView',
+      props: true,
+      component: FavoriteView
     },
   ]
 })

@@ -45,6 +45,7 @@
             <td>
             <button class=" red darken-3 btn-small"><router-link :to="'favorite/update/' + site.id" class="router-link"><i class="material-icons center">create</i></router-link></button>
             <button @click = "deleteFavorites(site)" class=" blue darken-3 btn-small"><i class="material-icons center">delete</i></button>
+            <button class=" green darken-3 btn-small"><router-link :to="'favorite/view/' + site.id + '/' + site.config.id + '/' + site.value" class="router-link"><i class="material-icons center">remove_red_eye</i></router-link></button>
             </td>
             
 
