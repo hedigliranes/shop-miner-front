@@ -21,13 +21,57 @@
     <div class="container">
 
       <h5 class="att">Sites:</h5>
-      <h6 class="att">Nome: {{sites[0].site.name}} </h6>
-      <h6 class="att">Url: {{sites[0].site.url}} </h6>
 
-      <h5 class="att">Produto:</h5>
-      <h6 class="att">Nome: {{sites[0].product.name}} </h6>
-      <h6 class="att">Preço: {{sites[0].price.value}} </h6>
+    <table>
 
+        <thead>
+
+          <tr>
+            <th>NOME</th>
+            <th>URL</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr v-for="site of sites">
+
+            <td>{{site.site.name}}</td>
+            <td>{{site.site.url}}</td>
+            
+
+          </tr>
+
+        </tbody>
+      
+      </table>
+
+
+    <table>
+
+        <thead>
+
+          <tr>
+            <th>NOME</th>
+            <th>PREÇO</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr v-for="site of sites">
+
+            <td>{{site.product.name}}</td>
+            <td>{{site.price.value}}</td>
+            
+
+          </tr>
+
+        </tbody>
+      
+      </table>
      
     </div>
 
