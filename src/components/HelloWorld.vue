@@ -30,8 +30,14 @@
 
           <input type="text" placeholder="Search" v-model="query.search">
 
-          <button class="waves-effect waves-light btn-small">Buscar<i class="material-icons left">search</i></button>
+          <button class="left waves-effect waves-light btn-small">Buscar<i class="material-icons left">search</i></button>
 
+
+      </form>
+          <button v-on:click="catchData" class="left waves-effect red btn-small">Favoritar<i class="material-icons left">favorite</i></button>
+      <form>
+
+          
       </form>
 
       <table>
@@ -49,8 +55,8 @@
 
           <tr v-for="sites of site" :key="sites.id" >
 
-            <td>{{sites.name}}</td>
-            <td>{{sites.price}}</td>
+            <td>{{sites.site.name}}</td>
+            <td>{{sites.price.value}}</td>
             <td>
               </td>
 
@@ -69,6 +75,7 @@
 
 import Product from '../services/products'
 import Configs from '../services/configs'
+import Favorite from '../services/favorite'
 
 export default{
 
@@ -82,6 +89,13 @@ export default{
       configs:[],
       config:{
         id:''
+      },
+      fav:{
+        rateInteger:'',
+        value:'',
+        config:{
+          id:''
+        }
       }
     }
   },
@@ -104,7 +118,20 @@ export default{
         if(e.target.options.selectedIndex > -1) {
           this.config.id = e.target.options[e.target.options.selectedIndex].value
         }
-    } 
+    },
+    catchData(){
+        this.fav.rateInteger = 0;
+        this.fav.value = this.query.search;
+        this.fav.config.id = this.config.id;
+        this.saveFavorites(this.fav);
+    },
+
+    saveFavorites(){
+        Favorite.saveFavorites(this.fav).then(resp => {
+          window.location.replace("#/");
+        })
+    }
+
      
   } 
 }

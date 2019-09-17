@@ -20,63 +20,63 @@
 
     <div class="container">
 
+      <form @submit.prevent="editConfigs">
 
-      <table>
+          <input type="text" placeholder="Query" v-model="fav.value">
+          <input type="text" placeholder="Configuração" v-model="fav.config.id">
+          <input type="text" placeholder="Tempo de Busca" v-model="fav.rateInteger">
 
-        <thead>
+          <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
 
-          <tr>
-            <th>NOME</th>
-            <th>URL</th>
-            <th>Configuração</th>
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          <tr v-for="site of sites" :key="site.id" >
-
-            <td>{{site.name}}</td>
-            <td>{{site.url}}</td>
-            <td>{{site.config.name}}</td>
-            
-
-          </tr>
-
-        </tbody>
-      
-      </table>
+      </form>
 
     </div>
-
-
 
   </div>
 </template>
 
 <script>
 
-import Sites from '../services/sites'
+import Favorite from '../services/favorite'
 
 export default{
 
+  props:[
+  'id'
+  ],
+
   data(){
     return{
-      sites:[]
+      fav:{
+        rateInteger:'',
+        value:'',
+        config:{
+          id:''
+        }
+      }
     }
   },
 
   mounted(){
-    this.listSites()
+    this.findConfig()
   },
 
   methods:{
-    listSites(){
-        Sites.listSites().then(resp => {
-          this.sites = resp.data
+
+    editConfigs(){
+        Favorite.editFavorites(this.fav).then(resp => {
+          window.location.replace("#/favorite");
         })
-    },     
+    },
+
+    findConfig(){
+      Favorite.findFavorite(this.id).then(resp => {
+          this.fav = resp.data;
+        })
+    }
+     
+
+
   } 
 }
 
@@ -96,13 +96,5 @@ nav.nav-center ul li a {
     display: inline-block;
 }
 
-.router-link{
-  color: white;
-}
-
-.pink, darken-3{
-	float:left;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
 </style>
+  

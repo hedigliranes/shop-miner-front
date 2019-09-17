@@ -9,6 +9,8 @@ import ConfigUpdate from '@/components/ConfigUpdate'
 import ConfigView from '@/components/ConfigView'
 import SiteNew from '@/components/SiteNew'
 import SiteUpdate from '@/components/SiteUpdate'
+import FavoriteUpdate from '@/components/FavoriteUpdate'
+
 
 
 Vue.use(Router)
@@ -63,6 +65,12 @@ export default new Router({
       path: '/favorite',
       name: 'Favorite',
       component: Favorite
-    }
+    },
+    {
+      path: '/favorite/update/:id/',
+      name: 'FavoriteUpdate',
+      props: true,
+      component: FavoriteUpdate
+    },
   ]
 })
