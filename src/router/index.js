@@ -12,9 +12,6 @@ import SiteUpdate from '@/components/SiteUpdate'
 import FavoriteUpdate from '@/components/FavoriteUpdate'
 import FavoriteView from '@/components/FavoriteView'
 
-
-
-
 Vue.use(Router)
 
 export default new Router({

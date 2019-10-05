@@ -1,16 +1,12 @@
 <template>
   <div id="app">
 
-  <nav class = "nav-center">
+<nav class = "nav-center">
       <div class="nav-wrapper blue darken-1">
-        <h2>Shop-Miner</h2>
-      </div>
-    </nav>
-
-    <nav class = "nav-center">
-      <div class="nav-wrapper blue darken-1">
+      <router-link to="/" class="left"><img class="logo" src="../assets/logo2.png"></router-link>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="hide-on-med-and-down">
-          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="/">Busca</router-link></li>
           <li><router-link to="/config">Configurações</router-link></li>
           <li><router-link to="/site">Sites</router-link></li>
           <li><router-link to="/favorite">Favoritos</router-link></li>
@@ -18,10 +14,17 @@
       </div>
     </nav>
 
+  <ul class="sidenav" id="mobile-demo">
+    <li style = "margin-bottom:10%"><router-link to="/" class="center"><img class="logo2" src="../assets/logo2Blue.png"></router-link></li>
+    <li><router-link to="/">Busca</router-link></li>
+    <li><router-link to="/config">Configurações</router-link></li>
+    <li><router-link to="/site">Sites</router-link></li>
+    <li><router-link to="/favorite">Favoritos</router-link></li>
+  </ul>
     <div class="container">
 
 
-      <table>
+      <table class="striped">
 
         <thead>
 
@@ -69,6 +72,8 @@ export default{
 
   mounted(){
     this.listSites()
+
+    document.getElementsByClassName("sidenav-overlay")[0].style.display = "none";  
   },
 
   methods:{
@@ -100,9 +105,9 @@ nav.nav-center ul li a {
   color: white;
 }
 
-.pink, darken-3{
+.pink, .darken-3{
 	float:left;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 </style>

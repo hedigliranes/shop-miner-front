@@ -1,16 +1,13 @@
 <template>
   <div id="app">
 
+
   <nav class = "nav-center">
       <div class="nav-wrapper blue darken-1">
-        <h2>Shop-Miner</h2>
-      </div>
-    </nav>
-
-    <nav class = "nav-center">
-      <div class="nav-wrapper blue darken-1">
+      <router-link to="/" class="left"><img class="logo" src="../assets/logo2.png"></router-link>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="hide-on-med-and-down">
-          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="/">Busca</router-link></li>
           <li><router-link to="/config">Configurações</router-link></li>
           <li><router-link to="/site">Sites</router-link></li>
           <li><router-link to="/favorite">Favoritos</router-link></li>
@@ -18,29 +15,51 @@
       </div>
     </nav>
 
+  <ul class="sidenav" id="mobile-demo">
+    <li style = "margin-bottom:10%"><router-link to="/" class="center"><img class="logo2" src="../assets/logo2Blue.png"></router-link></li>
+    <li><router-link to="/">Busca</router-link></li>
+    <li><router-link to="/config">Configurações</router-link></li>
+    <li><router-link to="/site">Sites</router-link></li>
+    <li><router-link to="/favorite">Favoritos</router-link></li>
+  </ul>
+
     <div class="container">
 
-      <form @submit.prevent="listSites">
+        <div class="col s12">
+          <div class="card white cardOut-css">
+            <div class="card-content white-text card-css">
 
-          <h5>Selecione a configuração:</h5>
-          <select @change="handleChange" class="browser-default">
-            <option value="" disabled selected>Choose your option</option>
-            <option v-for="config of configs" :value="config.id" >{{config.name}}</option>
-          </select>
+               <img src="../assets/logo2Blue.png">
 
-          <input type="text" placeholder="Search" v-model="query.search">
+               <form @submit.prevent="listSites">
 
-          <button class="left waves-effect waves-light btn-small">Buscar<i class="material-icons left">search</i></button>
+               <select @change="handleChange" class="browser-default select" >
+                  <option value="" disabled selected>Selecione a Configuração</option>
+                  <option v-for="config of configs" :value="config.id" >{{config.name}}</option>
+                </select>
 
+                <div class="input-field search col s6">
+                    <input id="search" type="text" v-model="query.search">
+                    <label for="search">Pesquise um produto</label> 
+                </div> 
 
+                <button class="left waves-effect waves-light btn-small">Buscar<i class="material-icons right">search</i></button>
+
+                <form>
+                    <button v-on:click="catchData" class="left waves-effect red btn-small">Favoritar<i class="material-icons left">favorite</i></button>
+                </form>
+
+             </form> 
+
+            </div>
+          </div>
+        </div>
+            
       </form>
-          <button v-on:click="catchData" class="left waves-effect red btn-small">Favoritar<i class="material-icons left">favorite</i></button>
-      <form>
 
-          
-      </form>
+      <hr>
 
-      <table>
+      <table class="striped">
 
         <thead>
 
@@ -77,6 +96,10 @@ import Product from '../services/products'
 import Configs from '../services/configs'
 import Favorite from '../services/favorite'
 
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, {});
+  });
 export default{
 
 
@@ -102,6 +125,8 @@ export default{
 
   mounted(){
     this.listConfigs();
+
+    document.getElementsByClassName("sidenav-overlay")[0].style.display = "none";  
   },
   methods:{
     listSites(){
@@ -136,8 +161,6 @@ export default{
   } 
 }
 
-
-
 </script>
 
 <style>
@@ -150,5 +173,24 @@ nav.nav-center ul li {
 }
 nav.nav-center ul li a {
     display: inline-block;
+}
+
+.select{
+  width:fit-content; 
+}
+
+#search{
+  border-radius: 10px;
+  padding-left: 20px;
+}
+
+.card-css{
+  height: 28em;
+}
+
+.cardOut-css{
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border-radius: 30px;
 }
 </style>
