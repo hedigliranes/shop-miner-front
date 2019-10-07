@@ -80,8 +80,6 @@ export default{
 
   mounted(){
     this.listFavorites()
-
-    document.getElementsByClassName("sidenav-overlay")[0].style.display = "none";  
   },
 
   methods:{

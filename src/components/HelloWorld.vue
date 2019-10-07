@@ -16,7 +16,7 @@
     </nav>
 
   <ul class="sidenav" id="mobile-demo">
-    <li style = "margin-bottom:10%"><router-link to="/" class="center"><img class="logo2" src="../assets/logo2Blue.png"></router-link></li>
+    <li style = "margin-bottom:10%"><router-link to="/" class="center sidenav-close"><img class="logo2" src="../assets/logo2Blue.png"></router-link></li>
     <li><router-link to="/">Busca</router-link></li>
     <li><router-link to="/config">Configurações</router-link></li>
     <li><router-link to="/site">Sites</router-link></li>
@@ -59,13 +59,13 @@
 
       <hr>
 
-      <table class="striped">
+
+      <table>
 
         <thead>
 
           <tr>
-            <th>NOME</th>
-            <th>PREÇO</th>
+            <th>Lista de Produtos</th>
           </tr>
 
         </thead>
@@ -74,10 +74,24 @@
 
           <tr v-for="sites of site" :key="sites.id" >
 
-            <td>{{sites.site.name}}</td>
-            <td>{{sites.price.value}}</td>
-            <td>
-              </td>
+            <ul class="collapsible">
+                <li>
+                  <div class="collapsible-header"><i class="material-icons">shopping_cart</i><span style="margin-right: 1em ">{{sites.site.name}}</span>-<span style="margin-left: 1em">{{sites.price.value}}</span></div>
+                  <div class="collapsible-body">
+                    <div class="card profile">
+                        <div class="card-header pheader">
+                          <img v-bind:src="sites.product.img" />
+                        </div>
+                        <div class="card-content pcontent">
+                        <button class="center waves-effect red btn-small"><a class = "siteLink" v-bind:href="sites.site.productLink">Visitar a Loja</a><i class="material-icons right">arrow_forward</i></button>
+                          <h3>{{sites.product.name}}</h3>
+                          <h4>{{sites.price.value}}</h4>
+                          <p>{{sites.product.description}}</p>
+                        </div>
+                      </div>
+                  </div>
+                </li>
+              </ul>
 
           </tr>
 
@@ -96,10 +110,16 @@ import Product from '../services/products'
 import Configs from '../services/configs'
 import Favorite from '../services/favorite'
 
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('click', function() {
     var elems = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(elems, {});
   });
+
+  document.addEventListener('mouseover', function() {
+    var elems = document.querySelectorAll('.collapsible');
+    var instances = M.Collapsible.init(elems, {});
+  });
+
 export default{
 
 
@@ -126,7 +146,6 @@ export default{
   mounted(){
     this.listConfigs();
 
-    document.getElementsByClassName("sidenav-overlay")[0].style.display = "none";  
   },
   methods:{
     listSites(){
@@ -192,5 +211,62 @@ nav.nav-center ul li a {
   margin-top: 2em;
   margin-bottom: 2em;
   border-radius: 30px;
+}
+
+.siteLink{
+  color: white;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans);
+
+
+.profile {
+  background-color: #f4f4f4;
+  width: 300px;
+  margin: 10px auto;
+  box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.7);
+}
+
+.pheader {
+  overflow: hidden;
+  width: 100%;
+  max-height: 200px;
+}
+
+h3{
+  margin-top: 0.5em; 
+}
+
+h4{
+  margin-top: 1em;
+}
+
+.pheader img{
+  width: 69%;
+}
+
+.pcontent {
+  width: 85%;
+  margin: 35px auto;
+}
+
+.pcontent h3 {
+  font-size: 30px;
+  margin-bottom: 0;
+  color: #303F9F;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.pcontent h4 {
+  font-size: 14px;
+  color: #FF5252;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.pcontent p {
+  color: #727272;
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+  
 }
 </style>
