@@ -222,7 +222,7 @@ nav.nav-center ul li a {
 
 .profile {
   background-color: #f4f4f4;
-  width: 300px;
+  width: 45em;
   margin: 10px auto;
   box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.7);
 }
@@ -242,7 +242,7 @@ h4{
 }
 
 .pheader img{
-  width: 69%;
+  width: 30%;
 }
 
 .pcontent {

@@ -20,6 +20,14 @@ export default{
 
 	deleteFavorites:(favorite) =>{
 		return http.delete('favorite',{data: favorite})
+	},
+
+	predict:(config,site) =>{
+		return http.get('favorite/'.concat(config) + '/'.concat(site))
+	},
+
+	predictPrice:(id,init,end) =>{
+		return http.get('predict/'.concat(id) + '/'.concat(init) + '/'.concat(end))
 	}
 
 }

@@ -29,6 +29,10 @@
           <input type="text" placeholder="Nome" v-model="site.name">
           <input type="text" placeholder="URL" v-model="site.url">
           <input type="text" placeholder="Tag Class" v-model="site.tagClass">
+          <input type="text" placeholder="Produto Class" v-model="site.productClass">
+          <input type="text" placeholder="Descrição Class" v-model="site.descriptionClass">
+          <input type="text" placeholder="Radical Class" v-model="site.radicalLink">
+          <input type="text" placeholder="Imagem Class" v-model="site.imgClass">
           <input type="text" placeholder="Id da configuração" v-model="site.config.id">
 
           <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
@@ -58,6 +62,11 @@ export default{
       	name:'',
       	url: '',
         tagClass:'',
+        productClass: '',
+        descriptionClass: '',
+        productLink: '',
+        radicalLink: '',
+        imgClass:'',
         config:{
           id:''
         }

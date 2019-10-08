@@ -78,16 +78,45 @@
         </tbody>
       
       </table>
+
+
+      <div id="chart">
+         <apexchart type=line height=350 :options="chartOptions" :series="series" />
+      </div>
+
+      
+       <form @submit.prevent="predictPrice">
+
+                <h5>Predição:</h5>
+
+                <div class="input-field search col s6">
+                    <input id="init" type="text" v-model="Init">
+                    <label for="init">Data inicial</label> 
+                </div> 
+
+                <div class="input-field search col s6">
+                    <input id="end" type="text" v-model="End">
+                    <label for="end">Data Final</label> 
+                </div> 
+
+                <button class="left waves-effect waves-light btn-small">Buscar<i class="material-icons right">search</i></button>
+
+             </form> 
+
+             <h5>{{this.Resp}}</h5>
      
     </div>
 
   </div>
 </template>
 
+
 <script>
 
 import Favorite from '../services/favorite'
 import Product from '../services/products'
+import Vue from 'vue'
+import VueApexCharts from 'vue-apexcharts'
 
 export default{
 
@@ -96,6 +125,9 @@ export default{
   'query',
   'idFav'
   ],
+    components: {
+        apexchart: VueApexCharts,
+  }, 
 
   data(){
     return{
@@ -109,12 +141,50 @@ export default{
           }
         }
       },
-      sites:[]
+      sites:[],
+      linhas:[],
+      colunas:[],
+      idSite: '',
+      Init: '',
+      Resp:'',
+      End: '',
+      series: [{
+            name: "Preço",
+            data: [450,520,470,470,449]
+        }],
+        chartOptions: {
+          chart: {
+                height: 350,
+                zoom: {
+                    enabled: false
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'straight'
+            },
+            title: {
+                text: 'VARIAÇÃO DE PREÇO',
+                align: 'center'
+            },
+            grid: {
+                row: {
+                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                    opacity: 0.5
+                },
+            },
+            xaxis: {
+                categories: ["2019-05-20","2019-05-30","2019-05-31","2019-06-20","2019-06-25"],
+            }
+        }
+
     }
   },
 
   mounted(){
-    this.findFavorite()
+    this.findFavorite();
   },
 
   methods:{
@@ -123,20 +193,33 @@ export default{
     findFavorite(){
       Favorite.findFavorite(this.idFav).then(resp => {
           this.fav = resp.data;
-          this.listData()
+          this.listData(); 
         })
     },
 
     listData(){
         Product.listSites(this.query,this.id).then(resp => {
-          this.sites = resp.data
+          this.sites = resp.data;
+          this.idSite = this.sites[0].site.id;
+          this.predict();
+          var i;
+          for (i = 0; i < 3; i++){
+              this.chartOptions.xaxis.categories.push(String((resp.data[i].date).substring(0, 10)));
+              this.series[0].data.push(parseInt((resp.data[i].value).replace("R$", "").replace(".","").replace(",",".").replace("")));
+              console.log(this.chartOptions.xaxis.categories);
+          }
         })
     },
 
+    predictPrice(){
+      Favorite.predictPrice(this.idFav,this.Init,this.End).then(resp => {
+          this.Resp = resp.data;
+          console.log(resp.data);          
+        })
+    }
+
   } 
 }
-
-
 
 </script>
 
